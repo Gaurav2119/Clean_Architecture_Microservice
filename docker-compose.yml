@@ -1,0 +1,57 @@
+version: '3.4'
+
+services:
+  eureka-server:
+    container_name: eureka-server
+    image: steeltoeoss/eurekaserver:latest
+    restart: on-failure
+    hostname: eureka-server
+    networks:
+        - backend_network
+
+  productapi:
+    container_name: productapi
+    image: gaurav826/productapi:1.0.0
+    restart: on-failure
+    hostname: productapi
+    # build:
+    #   context: ./Product
+    #   dockerfile: Product.Api/Dockerfile
+    networks:
+       - backend_network
+
+  cartapi:
+    container_name: cartapi
+    image: gaurav826/cartapi:1.0.0
+    restart: on-failure
+    hostname: cartapi
+    # build:
+    #   context: ./Cart
+    #   dockerfile: Cart.Api/Dockerfile
+    networks:
+       - backend_network
+
+  userauthenticationapi:
+    container_name: userauthenticationapi
+    image: gaurav826/userauthenticationapi:1.0.0
+    restart: on-failure
+    hostname: userauthenticationapi
+    # build:
+    #   context: ./User
+    #   dockerfile: User.API/Dockerfile
+    networks:
+       - backend_network
+
+  apigateway:
+    container_name: apigateway
+    image: gaurav826/apigateway:1.0.0
+    restart: on-failure
+    hostname: apigateway
+    # build:
+    #   context: ./Gateway
+    #   dockerfile: Gateway.Api/Dockerfile
+    networks:
+       - backend_network
+
+networks:
+    backend_network:
